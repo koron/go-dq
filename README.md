@@ -17,12 +17,12 @@ func main() {
 	d := &dq1.SaveData{
 		Name: [4]rune{'と', 'ん', 'ぬ', 'ら'},
 	}
-	p, err := Encode(dq1, 0)
+	p, err := dq1.Encode(dq1, 0)
 	if err != nil {
 		panic(err)
 	}
-	// れぎざぶい かころぐじでぶ いかこせつ せねふ
-	fmt.Println(Format(p))
+	// "れぎざぶい かころぐじでぶ いかこせつ せねふ"
+	fmt.Println(dq1.Format(p))
 }
 ```
 
