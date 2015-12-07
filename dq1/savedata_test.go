@@ -16,8 +16,8 @@ func checkEncode(t *testing.T, d *SaveData, v int, expected string) {
 		t.Fatal(err)
 	}
 	if s != expected {
-		t.Fatalf("failed '%c%c%c%c' #0 expected %q but actually %q",
-			d.Name, expected, s)
+		t.Fatalf("failed %q #%d expected %q but actually %q",
+			d.Name, v, expected, s)
 	}
 }
 
