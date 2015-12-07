@@ -28,6 +28,8 @@ func TestEncode(t *testing.T) {
 	checkEncode(t, d, 0, "れぎざぶい かころぐじでぶ いかこせつ せねふ")
 	checkEncode(t, d, 1, "こたとぼえ くしがごぜばぼ えくしたと たはほ")
 	checkEncode(t, d, 2, "ゆれぎでぶ いにだどべかこ せつにはほ はやり")
+	checkEncode(t, d, 4, "るぐじべう きさわげずうき さそてぬひ ぬむゆ")
+	checkEncode(t, d, 7, "かさそどべ うぬぢばぼそて ぬひまもら もがご")
 }
 
 func TestEncodeMax(t *testing.T) {
@@ -42,4 +44,5 @@ func TestEncodeMax(t *testing.T) {
 		Shield: "みかがみのたて",
 	}
 	checkEncode(t, d, 0, "こさほれぎ ぎあめよれむや らこなのふ ひゆる")
+	checkEncode(t, d, 7, "よよづゆる るしがごぜずだ でへりわぐ ぎぢば")
 }
