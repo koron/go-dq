@@ -168,8 +168,17 @@ func (d *SaveData) items() ([8]int, error) {
 	return ret, nil
 }
 
-// Encode generates 復活の呪文(password) from SaveData
-func Encode(d *SaveData, v int) ([]rune, error) {
+// Password generates 復活の呪文 with variation v (0-7).
+func (d *SaveData) Password(v int) (string, error) {
+	c, err := d.encodePassword(v)
+	if err != nil {
+		return "", err
+	}
+	return formatPassword(c), nil
+}
+
+// encodePassword generates 復活の呪文(password) from SaveData
+func (d *SaveData) encodePassword(v int) ([]rune, error) {
 	name, err := d.name()
 	if err != nil {
 		return nil, err
@@ -251,9 +260,9 @@ func Encode(d *SaveData, v int) ([]rune, error) {
 	return password, nil
 }
 
-func Format(p []rune) string {
+func formatPassword(c []rune) string {
 	b := bytes.Buffer{}
-	for i, r := range p {
+	for i, r := range c {
 		switch i {
 		case 5, 12, 17:
 			b.WriteRune(' ')

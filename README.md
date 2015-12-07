@@ -7,22 +7,24 @@ go-dq はFC版ドラゴンクエストの、復活の呪文を生成するライ
 使い方の例:
 
 ```go
+package dq1_test
+
 import (
 	"fmt"
 
 	"github.com/koron/go-dq/dq1"
 )
 
-func main() {
+func ExamplePassword() {
 	d := &dq1.SaveData{
 		Name: "とんぬら",
 	}
-	p, err := dq1.Encode(d, 0)
+	p, err := d.Password(0)
 	if err != nil {
 		panic(err)
 	}
-	// "れぎざぶい かころぐじでぶ いかこせつ せねふ"
-	fmt.Println(dq1.Format(p))
+	fmt.Println(p)
+	// Output: れぎざぶい かころぐじでぶ いかこせつ せねふ
 }
 ```
 

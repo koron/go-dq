@@ -2,16 +2,8 @@ package dq1
 
 import "testing"
 
-func testEncode(t *testing.T, d *SaveData, v int) (string, error) {
-	p, err := Encode(d, v)
-	if err != nil {
-		return "", err
-	}
-	return Format(p), nil
-}
-
-func checkEncode(t *testing.T, d *SaveData, v int, expected string) {
-	s, err := testEncode(t, d, v)
+func checkPassword(t *testing.T, d *SaveData, v int, expected string) {
+	s, err := d.Password(v)
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -21,18 +13,18 @@ func checkEncode(t *testing.T, d *SaveData, v int, expected string) {
 	}
 }
 
-func TestEncode(t *testing.T) {
+func TestPassword(t *testing.T) {
 	d := &SaveData{
 		Name: "とんぬら",
 	}
-	checkEncode(t, d, 0, "れぎざぶい かころぐじでぶ いかこせつ せねふ")
-	checkEncode(t, d, 1, "こたとぼえ くしがごぜばぼ えくしたと たはほ")
-	checkEncode(t, d, 2, "ゆれぎでぶ いにだどべかこ せつにはほ はやり")
-	checkEncode(t, d, 4, "るぐじべう きさわげずうき さそてぬひ ぬむゆ")
-	checkEncode(t, d, 7, "かさそどべ うぬぢばぼそて ぬひまもら もがご")
+	checkPassword(t, d, 0, "れぎざぶい かころぐじでぶ いかこせつ せねふ")
+	checkPassword(t, d, 1, "こたとぼえ くしがごぜばぼ えくしたと たはほ")
+	checkPassword(t, d, 2, "ゆれぎでぶ いにだどべかこ せつにはほ はやり")
+	checkPassword(t, d, 4, "るぐじべう きさわげずうき さそてぬひ ぬむゆ")
+	checkPassword(t, d, 7, "かさそどべ うぬぢばぼそて ぬひまもら もがご")
 }
 
-func TestEncodeMax(t *testing.T) {
+func TestPasswordMax(t *testing.T) {
 	d := &SaveData{
 		Name:    "とんぬら",
 		Gold:    65535,
@@ -43,6 +35,6 @@ func TestEncodeMax(t *testing.T) {
 		Armor:   "ロトのよろい",
 		Shield:  "みかがみのたて",
 	}
-	checkEncode(t, d, 0, "こさほれぎ ぎあめよれむや らこなのふ ひゆる")
-	checkEncode(t, d, 7, "よよづゆる るしがごぜずだ でへりわぐ ぎぢば")
+	checkPassword(t, d, 0, "こさほれぎ ぎあめよれむや らこなのふ ひゆる")
+	checkPassword(t, d, 7, "よよづゆる るしがごぜずだ でへりわぐ ぎぢば")
 }
