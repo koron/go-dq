@@ -6,7 +6,7 @@ import (
 	"github.com/koron/go-dq/dq1"
 )
 
-func ExamplePassword() {
+func ExampleSaveData_Password() {
 	d := &dq1.SaveData{
 		Name: "とんぬら",
 	}
