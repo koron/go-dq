@@ -15,7 +15,7 @@ import (
 
 func main() {
 	d := &dq1.SaveData{
-		Name: [4]rune{'と', 'ん', 'ぬ', 'ら'},
+		Name: "とんぬら",
 	}
 	p, err := dq1.Encode(d, 0)
 	if err != nil {

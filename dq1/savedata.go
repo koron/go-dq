@@ -72,8 +72,8 @@ var crcTable = []int{
 // SaveData is DQ1のセーブデータ
 type SaveData struct {
 
-	// Name is 名前. Which should be choosen from NameKana
-	Name [4]rune
+	// Name is 名前. Max length 4.  Composed from chars in NameKana
+	Name string
 
 	// Gold is 所持金. Max value is 65535
 	Gold int
@@ -116,13 +116,18 @@ type SaveData struct {
 }
 
 func (d *SaveData) name() ([4]int, error) {
-	var ret [4]int
-	for i, r := range d.Name {
+	ret := [4]int{63, 63, 63, 63}
+	i := 0
+	for _, r := range d.Name {
+		if i >= len(ret) {
+			return ret, fmt.Errorf("long name")
+		}
 		n := findRune(r, NameKana)
 		if n < 0 {
 			return ret, fmt.Errorf("invalid kana:%c in Name at #%d", r, i)
 		}
 		ret[i] = n
+		i++
 	}
 	return ret, nil
 }

@@ -17,13 +17,13 @@ func checkEncode(t *testing.T, d *SaveData, v int, expected string) {
 	}
 	if s != expected {
 		t.Fatalf("failed '%c%c%c%c' #0 expected %q but actually %q",
-			d.Name[0], d.Name[1], d.Name[2], d.Name[3], expected, s)
+			d.Name, expected, s)
 	}
 }
 
 func TestEncode(t *testing.T) {
 	d := &SaveData{
-		Name: [4]rune{'と', 'ん', 'ぬ', 'ら'},
+		Name: "とんぬら",
 	}
 	checkEncode(t, d, 0, "れぎざぶい かころぐじでぶ いかこせつ せねふ")
 	checkEncode(t, d, 1, "こたとぼえ くしがごぜばぼ えくしたと たはほ")
@@ -34,14 +34,14 @@ func TestEncode(t *testing.T) {
 
 func TestEncodeMax(t *testing.T) {
 	d := &SaveData{
-		Name: [4]rune{'と', 'ん', 'ぬ', 'ら'},
-		Gold: 65535,
-		Exp: 65535,
-		KeyNum: 7,
+		Name:    "とんぬら",
+		Gold:    65535,
+		Exp:     65535,
+		KeyNum:  7,
 		HerbNum: 7,
-		Weapon: "ロトのつるぎ",
-		Armor: "ロトのよろい",
-		Shield: "みかがみのたて",
+		Weapon:  "ロトのつるぎ",
+		Armor:   "ロトのよろい",
+		Shield:  "みかがみのたて",
 	}
 	checkEncode(t, d, 0, "こさほれぎ ぎあめよれむや らこなのふ ひゆる")
 	checkEncode(t, d, 7, "よよづゆる るしがごぜずだ でへりわぐ ぎぢば")
