@@ -28,8 +28,17 @@ func ExamplePassword() {
 }
 ```
 
+## DQ2
+
+### Names
+
+*   Lorasia
+*   Samantoria
+*   Moonbrooke
+
 ## References
 
 以下の資料を参考にしました。
 
 *   [「復活の呪文」資料室](http://www.imasy.or.jp/~yotti/dq-passwd.html)
+*   [Dragon\_Quest\_II in en wikipedia](https://en.wikipedia.org/wiki/Dragon_Quest_II)
