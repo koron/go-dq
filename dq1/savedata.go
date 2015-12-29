@@ -97,7 +97,7 @@ type SaveData struct {
 	Shield string
 
 	// Items is 所持アイテム.  Shol be choosen from Items
-	Items [8]string
+	Items []string
 
 	// Uroko indicates 「りゅうのうろこ」を身につけたことがある
 	Uroko bool
@@ -158,6 +158,9 @@ func (d *SaveData) shield() (int, error) {
 
 func (d *SaveData) items() ([8]int, error) {
 	var ret [8]int
+	if len(d.Items) > 8 {
+		return ret, fmt.Errorf("too many items")
+	}
 	for i, t := range d.Items {
 		n := findString(t, Items)
 		if n < 0 {
@@ -204,6 +207,12 @@ func (d *SaveData) encodePassword(v int) ([]rune, error) {
 	}
 	if d.Exp < 0 || d.Exp > 65535 {
 		return nil, fmt.Errorf("exp overflow: %d", d.Exp)
+	}
+	if d.KeyNum < 0 || d.KeyNum > 6 {
+		return nil, fmt.Errorf("key-num overflow: %d", d.KeyNum)
+	}
+	if d.HerbNum < 0 || d.HerbNum > 6 {
+		return nil, fmt.Errorf("herb-num overflow: %d", d.HerbNum)
 	}
 
 	checks := []bool{
