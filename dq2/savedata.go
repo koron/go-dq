@@ -160,9 +160,34 @@ func (d *SaveData) encodePassword(cryptKey int) ([]byte, error) {
 		return nil, err
 	}
 
-	// TODO:
+	c := b.Bytes()
+	l := len(c)
+	if l > 40 {
+		return nil, fmt.Errorf("too long codes (len:%d)", l)
+	} else if l == 40 {
+		c[8] = c[39]
+		c = c[:len(c)-1]
+	}
+
+	// TODO: calc check code
+	// TODO: make 6bit twisted sequence.
+	// TODO: crypt
 
 	return nil, nil
+}
+
+func (d *SaveData) formatPassword(b []byte) string {
+	// TODO:
+	return ""
+}
+
+// Password generates 復活の呪文 with variation v (0-15).
+func (d *SaveData) Password(cryptKey int) (string, error) {
+	c, err := d.encodePassword(cryptKey)
+	if err != nil {
+		return "", err
+	}
+	return d.formatPassword(c), nil
 }
 
 // Char is キャラクターの状態
