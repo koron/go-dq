@@ -1,9 +1,6 @@
 package dq2
 
-import (
-	"bytes"
-	"fmt"
-)
+import "fmt"
 
 // SaveData is DQ2のセーブデータ
 type SaveData struct {
@@ -96,7 +93,7 @@ func (d *SaveData) name() ([]byte, error) {
 }
 
 func (d *SaveData) encodePassword(cryptKey int) ([]byte, error) {
-	b := &bytes.Buffer{}
+	b := &Buffer{}
 
 	cp, err := d.checkPoint()
 	if err != nil {
@@ -135,7 +132,33 @@ func (d *SaveData) encodePassword(cryptKey int) ([]byte, error) {
 		btoi(d.Crest.Sun, 0x01)))
 	b.WriteByte(0)
 
-	// TODO:
+	// Lorasia
+	b.WriteBits(d.Lorasia.Exp, 16)
+	b.WriteBits(d.Lorasia.Exp>>16, 4)
+	d.Lorasia.WriteItems(b)
+
+	// Samantoria
+	if d.Samantoria != nil {
+		b.WriteBits(1, 1)
+		b.WriteBits(d.Samantoria.Exp, 16)
+		b.WriteBits(d.Samantoria.Exp>>16, 4)
+		d.Samantoria.WriteItems(b)
+		// Moonbrooke
+		if d.Moonbrooke != nil {
+			b.WriteBits(1, 1)
+			b.WriteBits(d.Moonbrooke.Exp, 16)
+			b.WriteBits(d.Moonbrooke.Exp>>16, 4)
+			d.Moonbrooke.WriteItems(b)
+		} else {
+			b.WriteBits(0, 1)
+		}
+	} else {
+		b.WriteBits(0, 1)
+	}
+	err = b.Flush()
+	if err != nil {
+		return nil, err
+	}
 
 	return nil, nil
 }
@@ -148,4 +171,24 @@ type Char struct {
 
 	// Items is 所持アイテム. Max is 8, choosen from Items.
 	Items []string
+}
+
+func (c *Char) items() []int {
+	a := make([]int, 0, len(c.Items))
+	for _, s := range c.Items {
+		n := findString(s, Items)
+		if n < 0 {
+			continue
+		}
+		a = append(a, n)
+	}
+	return a
+}
+
+func (c *Char) WriteItems(b *Buffer) {
+	a := c.items()
+	b.WriteBits(len(a), 4)
+	for _, n := range a {
+		b.WriteBits(n, 7)
+	}
 }
