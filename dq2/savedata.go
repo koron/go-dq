@@ -160,6 +160,8 @@ func (d *SaveData) encodePassword(cryptKey int) ([]byte, error) {
 		return nil, err
 	}
 
+	// TODO:
+
 	return nil, nil
 }
 
