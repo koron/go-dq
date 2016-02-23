@@ -29,12 +29,12 @@ func TestPasswordMax(t *testing.T) {
 		Name:    "とんぬら",
 		Gold:    65535,
 		Exp:     65535,
-		KeyNum:  7,
-		HerbNum: 7,
+		KeyNum:  6,
+		HerbNum: 6,
 		Weapon:  "ロトのつるぎ",
 		Armor:   "ロトのよろい",
 		Shield:  "みかがみのたて",
 	}
-	checkPassword(t, d, 0, "こさほれぎ ぎあめよれむや らこなのふ ひゆる")
-	checkPassword(t, d, 7, "よよづゆる るしがごぜずだ でへりわぐ ぎぢば")
+	checkPassword(t, d, 0, "てとらじだ だころぐじれが げそのへみ まるが")
+	checkPassword(t, d, 7, "ぐぐいぎざ ざなぞでぶびぼ うめわげじ ざばぼ")
 }
